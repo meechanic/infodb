@@ -21,10 +21,13 @@ from base.views import *
 from rest_framework.authtoken import views
 
 router = routers.DefaultRouter()
-router.register(r'apisources', ApiSourceList)
-router.register(r'apilinks', ApiLinkList)
-router.register(r'apisourcetags', ApiSourceTagList)
-router.register(r'apilinktags', ApiLinkTagList)
+router.register(r'apisources', ApiSource)
+router.register(r'apilinks', ApiLink)
+router.register(r'apisourcetags', ApiSourceTag)
+router.register(r'apilinktags', ApiLinkTag)
+
+admin.site.site_header = 'InfoDB'
+admin.site.index_title = 'Administration'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

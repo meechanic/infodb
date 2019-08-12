@@ -30,7 +30,7 @@ def api_root(request, format=None):
 
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
-class ApiLinkTagList(viewsets.ModelViewSet):
+class ApiLinkTag(viewsets.ModelViewSet):
     """
     API endpoint that represents a list of objects.
     """
@@ -43,7 +43,7 @@ class ApiLinkTagList(viewsets.ModelViewSet):
 
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
-class ApiSourceTagList(viewsets.ModelViewSet):
+class ApiSourceTag(viewsets.ModelViewSet):
     """
     API endpoint that represents a list of objects.
     """
@@ -56,7 +56,7 @@ class ApiSourceTagList(viewsets.ModelViewSet):
 
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
-class ApiLinkList(viewsets.ModelViewSet):
+class ApiLink(viewsets.ModelViewSet):
     """
     API endpoint that represents a list of objects.
     """
@@ -69,7 +69,7 @@ class ApiLinkList(viewsets.ModelViewSet):
 
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
-class ApiSourceList(viewsets.ModelViewSet):
+class ApiSource(viewsets.ModelViewSet):
     """
     API endpoint that represents a list of objects.
     """
