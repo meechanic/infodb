@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # Create your models here.
 
@@ -72,7 +72,7 @@ class Source(models.Model):
     author_list = models.TextField()
     review = models.ManyToManyField('self', blank=True)
     tag = models.ManyToManyField(SourceTag, blank=True)
-    link = models.ForeignKey(Link, blank=True, null=True, related_name='source_link')
+    link = models.ForeignKey(Link, blank=True, null=True, related_name='source_link', on_delete=models.CASCADE,)
 
     def __str__(self):
         return ' '.join([self.name])
