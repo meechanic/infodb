@@ -128,3 +128,20 @@ FORCE_SCRIPT_NAME = os.environ['FSN']
 STATIC_URL = FORCE_SCRIPT_NAME + '/static/'
 LOGIN_REDIRECT_URL = FORCE_SCRIPT_NAME + '/'
 LOGOUT_REDIRECT_URL = FORCE_SCRIPT_NAME + '/'
+
+# following the Quickstart here https://www.django-rest-framework.org/coreapi/schemas/
+# python manage.py generateschema > schema.yml
+# Got AttributeError: 'ManualSchema' object has no attribute 'get_operation'
+# Try to fix due to https://stackoverflow.com/questions/58742948/rest-framework-swagger-autoschema-object-has-no-attribute-get-link
+# Also: https://github.com/encode/django-rest-framework/issues/6868
+REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema' }
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}

@@ -19,7 +19,7 @@ from django.contrib import admin
 from rest_framework import routers
 from base.views import *
 from rest_framework.authtoken import views
-from rest_framework.schemas import get_schema_view
+from rest_framework.schemas import get_schema_view as get_schema_view_rf
 from django.urls import path
 
 from rest_framework import permissions
@@ -39,6 +39,13 @@ schema_view = get_schema_view(
    permission_classes=[permissions.AllowAny],
 )
 
+schema_view_rf = get_schema_view_rf(
+    title="InfoDB",
+    description="Open API for the infsources DB",
+    version="1.0.0",
+    public=True,
+)
+
 router = routers.DefaultRouter()
 router.register(r'apisources', ApiSource)
 router.register(r'apilinks', ApiLink)
@@ -52,7 +59,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    #url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    #url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    url(r'^openapi/$', schema_view_rf, name='openapi-schema'),
     url(r'', include(router.urls)),
 ]
