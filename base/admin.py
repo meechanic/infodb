@@ -1,53 +1,38 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.contrib import admin
-
 from import_export import resources
 from base.models import *
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 
-class SourceTagResource(resources.ModelResource):
+class InfsourceResource(resources.ModelResource):
 
     class Meta:
-        model = SourceTag
+        model = Infsource
 
 
-class LinkTagResource(resources.ModelResource):
-
-    class Meta:
-        model = LinkTag
-
-
-class SourceResource(resources.ModelResource):
+class EditionResource(resources.ModelResource):
 
     class Meta:
-        model = Source
+        model = Edition
 
 
-class LinkResource(resources.ModelResource):
+class ResourceResource(resources.ModelResource):
 
     class Meta:
-        model = Link
+        model = Resource
 
 
-@admin.register(SourceTag)
+@admin.register(Infsource)
 class CategoryAdmin(ImportExportModelAdmin):
-    resource_class = SourceTagResource
+    resource_class = InfsourceResource
 
 
-@admin.register(LinkTag)
+@admin.register(Edition)
 class CategoryAdmin(ImportExportModelAdmin):
-    resource_class = LinkTagResource
+    resource_class = EditionResource
 
 
-@admin.register(Source)
+@admin.register(Resource)
 class CategoryAdmin(ImportExportModelAdmin):
-    resource_class = SourceResource
-
-
-@admin.register(Link)
-class CategoryAdmin(ImportExportModelAdmin):
-    resource_class = LinkResource
+    resource_class = ResourceResource

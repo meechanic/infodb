@@ -1,87 +1,75 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import models
 from django.urls import reverse
 
 # Create your models here.
 
-class LinkTag(models.Model):
+class Infsource(models.Model):
     name = models.TextField(unique = True)
-    type = models.TextField()
+    formal_name = models.TextField(blank=True)
+    clear_name = models.TextField(blank=True)
+    human_description = models.TextField(blank=True)
+    machine_description = models.TextField(blank=True)
+    author_list = models.TextField(blank=True)
+    supercategory = models.TextField(blank=True)
+    category = models.TextField(blank=True)
+    subcategory = models.TextField(blank=True)
 
     def __str__(self):
-        return ' '.join([self.type, self.name])
+        return self.name
 
     def __unicode__(self):
         return self.__str__()
 
     def get_absolute_url(self):
-        return reverse('source-view', kwargs={'pk': self.id})
+        return reverse('infsource-view', kwargs={'pk': self.id})
 
     class Meta:
         ordering = ['name']
 
 
-class SourceTag(models.Model):
+class Edition(models.Model):
     name = models.TextField(unique = True)
-    type = models.TextField()
+    human_description = models.TextField(blank=True)
+    machine_description = models.TextField(blank=True)
+    edition_number = models.TextField(blank=True)
+    publisher = models.TextField(blank=True)
+    publishing_time = models.TextField(blank=True)
+    infsource = models.ForeignKey(Infsource, blank=True, null=True, related_name='edition_infsource', on_delete=models.CASCADE,)
 
     def __str__(self):
-        return ' '.join([self.type, self.name])
+        return self.name
 
     def __unicode__(self):
         return self.__str__()
 
     def get_absolute_url(self):
-        return reverse('source-view', kwargs={'pk': self.id})
+        return reverse('edition-view', kwargs={'pk': self.id})
 
     class Meta:
         ordering = ['name']
-        
 
-class Link(models.Model):
-    text = models.TextField()
-    comment = models.TextField()
-    scheme = models.TextField()
-    base = models.TextField()
-    path = models.TextField()
-    edition = models.TextField()
-    publisher = models.TextField()
-    publishing_time = models.TextField()
-    tag = models.ManyToManyField(LinkTag, blank=True)
+
+class Resource(models.Model):
+    text = models.TextField(unique = True)
+    human_description = models.TextField(blank=True)
+    machine_description = models.TextField(blank=True)
+    scheme = models.TextField(blank=True)
+    host = models.TextField(blank=True)
+    path = models.TextField(blank=True)
+    supercollection = models.TextField(blank=True)
+    collection = models.TextField(blank=True)
+    subcollection = models.TextField(blank=True)
+    is_source = models.BooleanField(default=False)
+    edition = models.ForeignKey(Edition, blank=True, null=True, related_name='resource_edition', on_delete=models.CASCADE,)
 
     def __str__(self):
-        return ' '.join([self.text, self.publisher, self.publishing_time])
+        return self.text
 
     def __unicode__(self):
         return self.__str__()
 
     def get_absolute_url(self):
-        return reverse('source-view', kwargs={'pk': self.id})
+        return reverse('resource-view', kwargs={'pk': self.id})
 
     class Meta:
         ordering = ['text']
-
-
-class Source(models.Model):
-    name = models.TextField(unique = True) # Any string, unique indentifies source
-    clear_name = models.TextField() # Only name of source
-    informal_name = models.TextField() # Any string, indentifies source, may be not unique
-    comment = models.TextField()
-    author_list = models.TextField()
-    review = models.ManyToManyField('self', blank=True)
-    tag = models.ManyToManyField(SourceTag, blank=True)
-    link = models.ForeignKey(Link, blank=True, null=True, related_name='source_link', on_delete=models.CASCADE,)
-
-    def __str__(self):
-        return ' '.join([self.name])
-
-    def __unicode__(self):
-        return self.__str__()
-
-    def get_absolute_url(self):
-        return reverse('source-view', kwargs={'pk': self.id})
-
-    class Meta:
-        ordering = ['name']
