@@ -11,6 +11,12 @@ class InfsourceResource(resources.ModelResource):
         model = Infsource
 
 
+class InfsourceTagResource(resources.ModelResource):
+
+    class Meta:
+        model = InfsourceTag
+
+
 class EditionResource(resources.ModelResource):
 
     class Meta:
@@ -26,6 +32,11 @@ class ResourceResource(resources.ModelResource):
 @admin.register(Infsource)
 class CategoryAdmin(ImportExportModelAdmin):
     resource_class = InfsourceResource
+
+
+@admin.register(InfsourceTag)
+class CategoryAdmin(ImportExportModelAdmin):
+    resource_class = InfsourceTagResource
 
 
 @admin.register(Edition)

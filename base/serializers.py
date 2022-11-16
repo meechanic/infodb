@@ -8,6 +8,12 @@ class InfsourceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class InfsourceTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InfsourceTag
+        fields = '__all__'
+
+
 class EditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Edition
